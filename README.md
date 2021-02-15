@@ -15,8 +15,10 @@ Then while running RetroPie-Setup, you should see a new subsection in "dependenc
 - experimental/box86
 - experimental/wine
 
-Feedback, updated, issues can be discussed in this forum post:
-https://retropie.org.uk/forum/topic/28528/box86-and-wine-on-rpi4
-
-If you've had success with a game, or wonder what other people have been able to play, check out this forum post:
-https://retropie.org.uk/forum/topic/29241/the-what-works-with-box86-wine-topic-on-the-retropie-rpi4-400
+# Resources
+- Feedback, updated, issues can be discussed in this forum post: https://retropie.org.uk/forum/topic/28528/box86-and-wine-on-rpi4
+- If you've had success with a game, or wonder what other people have been able to play, check out this forum post: https://retropie.org.uk/forum/topic/29241/the-what-works-with-box86-wine-topic-on-the-retropie-rpi4-400
+- Wine App Compatibility Database: https://appdb.winehq.org/
+- Box86 Compatibility List: https://github.com/ptitSeb/box86-compatibility-list/issues
+- Box86 on GitHub: https://github.com/ptitSeb/box86
+- Box86 on Discord: https://discord.com/invite/Fh8sjmu
