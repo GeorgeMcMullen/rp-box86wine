@@ -106,7 +106,9 @@ function configure_wine() {
     # Download and install Winetricks into the roms directory
     wget -nv -O winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
     cp winetricks $romdir/wine/Winetricks.sh
+    chown $user:$user "$romdir/wine/Winetricks.sh"
     chmod a+rx $romdir/wine/Winetricks.sh
+
 
     if [[ "$md_mode" == "install" ]]; then
         cat > "$romdir/wine/$winedesktoplauncher" << _EOF_
