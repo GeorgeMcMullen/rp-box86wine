@@ -26,7 +26,7 @@ rp_module_flags="rpi4 x11"
 function _latest_ver_mesa() {
     # This defines the Git tag / branch which will be used. Main repository is at:
     # https://gitlab.freedesktop.org/mesa/mesa/
-    echo mesa-20.3.4
+    echo mesa-21.0.2
 }
 
 function depends_mesa() {
