@@ -224,5 +224,5 @@ _EOFCONFIG_
     fi
 
     addEmulator 1 "$md_id" "wine" "XINIT:$romdir/wine/${winedesktoplauncher// /\\ } %ROM%"
-    addSystem "wine"
+    addSystem "wine" "Wine is Not an Emulator" ".sh .conf"
 }
