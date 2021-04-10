@@ -94,7 +94,7 @@ function configure_wine() {
     #
     # Create a new Wine prefix directory
     #
-    sudo -u pi WINEDEBUG=-all setarch linux32 -L $md_inst/bin/wine winecfg /v win7
+    sudo -u pi WINEDEBUG=-all setarch linux32 -L $md_inst/bin/wine winecfg /v winxp
     
     # needs software synth for midi; limit to Pi for now
     if isPlatform "rpi"; then
