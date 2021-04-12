@@ -19,7 +19,18 @@ rp_module_flags="rpi4 x11"
 function _latest_ver_box86() {
     # This defines the Git tag / branch which will be used. Main repository is at:
     # https://github.com/ptitSeb/box86
-    echo v0.2.0
+    #echo v0.2.0
+    # March 1, 2021 - 14df602fa44788297f6343fdcfe1c7775e058a98 - No hang
+    # March 15, 2021 - e478b99307dc2bdcbd30da3285afc0a372dbaa20 - No hang
+    # April 1, 2021 - 44a7535791aca89b17396afcab5a9f70e07a2dab - Hangs
+    # March 26, 2021 - e83a119cbb3b70570ab5405edb60453633a4717e - Hangs
+    # March 18, 2021 - 638b341ba5f758efaba60100f68d6a425f9b738c - No hang
+    # March 24, 2021 - 334080dfd020eb0e94e5bf764baa4debd0bf4c67 - No hang
+    # March 25, 2021 - 491f111cafa8147360733c40dc9193fbbd402e4c - Hangs
+    # March 25, 2021 - bc198c37d7460c95cd0047f0cc1fd1234b898dc7 - Hangs
+    # March 25, 2021 - 5ab84a6e781961a4ea543d8e4c579f5b182b4a3b - No hang - DONE
+    # Aoril 11, 2021 - 38a33ab15b9ff496d84c5ed8b3c879cc3b8071ac - Latest as of April 11, 2021
+    echo 5ab84a6e781961a4ea543d8e4c579f5b182b4a3b
     # The following is not working yet. Releases must be non-prerelease and non-draft.
     # wget -qO- https://api.github.com/repos/ptitSeb/box86/releases/latest | grep -m 1 tag_name | cut -d\" -f4
 }
@@ -52,7 +63,11 @@ function depends_box86() {
 }
 
 function sources_box86() {
-    gitPullOrClone "$md_build" https://github.com/ptitSeb/box86.git "$(_latest_ver_box86)"
+    #gitPullOrClone "$md_build" https://github.com/ptitSeb/box86.git "$(_latest_ver_box86)"
+    git clone https://github.com/ptitSeb/box86.git /home/pi/RetroPie-Setup/tmp/build/box86
+    pushd /home/pi/RetroPie-Setup/tmp/build/box86
+    git checkout "$(_latest_ver_box86)" 
+    popd
 }
 
 function build_box86() {
@@ -67,7 +82,6 @@ function install_box86() {
     md_ret_files=(
         'build/box86'
         'build/libdynarec.a'
-        'LICENSE'
     )
 }
 
