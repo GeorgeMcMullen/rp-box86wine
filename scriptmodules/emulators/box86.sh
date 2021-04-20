@@ -30,7 +30,8 @@ function _latest_ver_box86() {
     # March 25, 2021 - bc198c37d7460c95cd0047f0cc1fd1234b898dc7 - Hangs
     # March 25, 2021 - 5ab84a6e781961a4ea543d8e4c579f5b182b4a3b - No hang - DONE
     # Aoril 11, 2021 - 38a33ab15b9ff496d84c5ed8b3c879cc3b8071ac - Latest as of April 11, 2021
-    echo 5ab84a6e781961a4ea543d8e4c579f5b182b4a3b
+    # This issue seems to have been resolved by commits on April 14, 2021
+    echo master
     # The following is not working yet. Releases must be non-prerelease and non-draft.
     # wget -qO- https://api.github.com/repos/ptitSeb/box86/releases/latest | grep -m 1 tag_name | cut -d\" -f4
 }
@@ -66,6 +67,7 @@ function sources_box86() {
     #gitPullOrClone "$md_build" https://github.com/ptitSeb/box86.git "$(_latest_ver_box86)"
     git clone https://github.com/ptitSeb/box86.git /home/pi/RetroPie-Setup/tmp/build/box86
     pushd /home/pi/RetroPie-Setup/tmp/build/box86
+    git fetch origin
     git checkout "$(_latest_ver_box86)" 
     popd
 }
