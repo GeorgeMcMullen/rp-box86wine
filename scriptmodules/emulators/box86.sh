@@ -19,7 +19,9 @@ rp_module_flags="rpi4 x11"
 function _latest_ver_box86() {
     # This defines the Git tag / branch which will be used. Main repository is at:
     # https://github.com/ptitSeb/box86
-    echo v0.2.0
+    # Commit 5ab84a6e781961a4ea543d8e4c579f5b182b4a3b was the last commit before an issue with Wine hanging upon exiting (wineserver to be exact)
+    # This issue seems to have been resolved by commits on April 14, 2021
+    echo master
     # The following is not working yet. Releases must be non-prerelease and non-draft.
     # wget -qO- https://api.github.com/repos/ptitSeb/box86/releases/latest | grep -m 1 tag_name | cut -d\" -f4
 }
