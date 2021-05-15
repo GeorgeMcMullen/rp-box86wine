@@ -67,7 +67,7 @@ function install_box86() {
     md_ret_files=(
         'build/box86'
         'build/libdynarec.a'
-        'LICENSE'
+        'docs/LICENSE'
     )
 }
 
