@@ -9,6 +9,11 @@
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
 
+#
+# TODO: Determine where to put x86lib files
+# TODO: Determine if it is better to use RetroPie locations for binaries or Box86 standard method using `make install`
+#
+
 rp_module_id="box86"
 rp_module_desc="Box86 emulator"
 rp_module_help="Place your x86 binaries $romdir/box86"
@@ -68,6 +73,9 @@ function install_box86() {
         'build/box86'
         'build/libdynarec.a'
         'docs/LICENSE'
+        'x86lib/libgcc_s.so.1'
+        'x86lib/libstdc++.so.5'
+        'x86lib/libstdc++.so.6'
     )
 }
 
@@ -75,4 +83,8 @@ function configure_box86() {
     local system="box86"
 
     update-binfmts --install i386 "$md_inst/${system}" --magic '\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00' --mask '\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff'
+
+    addEmulator 1 "$md_id" "box86"    "$romdir/box86/%ROM%"
+    addEmulator 1 "$md_id" "box86x11" "XINIT:$romdir/box86/%ROM%"
+    addSystem "box86" "Linux Userspace x86 Emulator with a twist" ".sh"
 }
