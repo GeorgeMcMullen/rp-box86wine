@@ -84,7 +84,7 @@ function configure_box86() {
 
     update-binfmts --install i386 "$md_inst/${system}" --magic '\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00' --mask '\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff'
 
-    addEmulator 1 "$md_id" "box86"    "$romdir/box86/%ROM%"
-    addEmulator 1 "$md_id" "box86x11" "XINIT:$romdir/box86/%ROM%"
+    addEmulator 1 "$md_id" "box86"    "%ROM%"
+    addEmulator 1 "$md_id" "box86x11" "XINIT:%ROM%"
     addSystem "box86" "Linux Userspace x86 Emulator with a twist" ".sh"
 }
