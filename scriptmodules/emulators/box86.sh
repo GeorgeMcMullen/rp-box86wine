@@ -73,7 +73,7 @@ function build_box86() {
     if isPlatform "64bit"; then
         rpSwap on 2048
         # We use the RPI4ARM64 flag as there isn't one for every system with a 64bit OS
-        cmake .. -DRPI4ARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
+        cmake .. -DCMAKE_C_FLAGS="-marm" -DRPI4ARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
         # According to the following page, we should only use -j2
         # https://ptitseb.github.io/box86/COMPILE.html
         make -j2
