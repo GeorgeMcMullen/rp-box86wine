@@ -19,7 +19,7 @@ rp_module_desc="Box86 emulator"
 rp_module_help="Place your x86 binaries $romdir/box86"
 rp_module_licence="MIT https://github.com/ptitSeb/box86/blob/master/LICENSE"
 rp_module_section="exp"
-rp_module_flags="rpi4 x11"
+rp_module_flags="rpi4 x11 radxa-zero"
 
 function _latest_ver_box86() {
     # This defines the Git tag / branch which will be used. Main repository is at:
@@ -40,13 +40,20 @@ function depends_box86() {
         return 1
     fi
 
-    if ! rp_isInstalled "mesa" ; then
-        md_ret_errors+=("Sorry, you need to install the Mesa scriptmodule")
-        return 1
-    fi
+    # TODO: Uncomment this
+    #if ! rp_isInstalled "mesa" ; then
+    #    md_ret_errors+=("Sorry, you need to install the Mesa scriptmodule")
+    #    return 1
+    #fi
 
     # Install required libraries required for compilation and running
-    getDepends binfmt-support cmake gtk2-engines-murrine libncurses5 libncursesw5 libssl1.0.2 libglu1-mesa zenity mesa-utils libinput10 libxkbcommon-x11-0 matchbox-window-manager xorg
+    #getDepends binfmt-support cmake gtk2-engines-murrine libncurses5 libncursesw5 libssl1.0.2 libglu1-mesa zenity mesa-utils libinput10 libxkbcommon-x11-0 matchbox-window-manager xorg
+
+    # If we are on a 64-bit system, we need some additional items
+    #if isPlatform "64bit"; then
+        #dpkg --add-architecture armhf && sudo apt-get update
+        #getDepends libc6:armhf gcc-arm-linux-gnueabihf
+    #fi
 
     # Restarting the binfmt service should eliminate the need to reboot the machine after installation.
     systemctl restart systemd-binfmt
@@ -63,8 +70,19 @@ function sources_box86() {
 function build_box86() {
     mkdir build
     cd build
-    cmake .. -DARM_DYNAREC=1 -DRPI4=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
-    make -j4
+    if isPlatform "64bit"; then
+        rpSwap on 2048
+        # We use the RPI4ARM64 flag as there isn't one for every system with a 64bit OS
+        cmake .. -DRPI4ARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
+        # According to the following page, we should only use -j2
+        # https://ptitseb.github.io/box86/COMPILE.html
+        make -j2
+    else
+        rpSwap on 750
+        cmake .. -DARM_DYNAREC=1 -DRPI4=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
+        make -j4
+    fi
+    rpSwap off
     cd ..
 }
 
