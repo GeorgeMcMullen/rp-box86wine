@@ -27,12 +27,33 @@ function _release_type_wine() {
 }
 
 function _release_distribution() {
-    echo buster-1_i386
+    echo "$(_os_codename)-1_i386"
+}
+
+function _os() {
+    if [ $__os_ubuntu_codename ]; then
+        echo "ubuntu"
+    else
+        echo "debian"
+    fi
+}
+
+function _os_codename() {
+    if [ $__os_ubuntu_codename ]; then
+        echo $__os_ubuntu_codename
+    else
+        echo $__os_debian_codename
+    fi
 }
 
 function depends_wine() {
     if compareVersions $__version lt 4.7.7; then
         md_ret_errors+=("Sorry, you need to be running RetroPie v4.7.7 or later")
+        return 1
+    fi
+
+    if compareVersions $__os_debian_ver lt 8; then
+        md_ret_errors+=("Sorry, you need to be running a more recent operating system version")
         return 1
     fi
 
@@ -52,7 +73,7 @@ function install_bin_wine() {
     local version="$(_latest_ver_wine)"
     local releaseType="$(_release_type_wine)"
     local releaseDist="$(_release_distribution)"
-    local baseURL="https://dl.winehq.org/wine-builds/debian/dists/buster/main/binary-i386/"
+    local baseURL="https://dl.winehq.org/wine-builds/$(_os)/dists/$(_os_codename)/main/binary-i386/"
 
     local workingDir="$__tmpdir/wine-${releaseType}-${version}/"
 
@@ -63,7 +84,8 @@ function install_bin_wine() {
     do
       local package="${i}_${version}~$releaseDist.deb"
       local getdeb="${baseURL}${package}"
-      
+
+      echo "Downloading ${getdeb}"
       wget -nv -O "$package" $getdeb
 
       mkdir "$i"
