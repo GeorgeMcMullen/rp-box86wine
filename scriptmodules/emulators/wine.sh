@@ -65,8 +65,9 @@ function depends_wine() {
         fi
     fi
     
+    # FreeType is required to enable TrueType fonts
     # Timidity is to enable MIDI output from Wine
-    getDepends timidity fluid-soundfont-gm
+    getDepends timidity fluid-soundfont-gm freetype2-demos
 }
 
 function install_bin_wine() {
