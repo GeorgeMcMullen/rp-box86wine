@@ -57,8 +57,8 @@ function depends_wine() {
         return 1
     fi
 
-    # On RPI systems, we need to make sure Box86 is installed.
-    if isPlatform "rpi"; then
+    # On ARM based systems, we need to make sure Box86 is installed.
+    if isPlatform "arm"; then
         if ! rp_isInstalled "box86" ; then
             md_ret_errors+=("Sorry, you need to install the Box86 scriptmodule")
             return 1
@@ -118,8 +118,8 @@ function configure_wine() {
     #
     sudo -u $user WINEDEBUG=-all setarch linux32 -L $md_inst/bin/wine winecfg /v winxp
     
-    # needs software synth for midi; limit to Pi for now
-    if isPlatform "rpi"; then
+    # needs software synth for midi; limit to ARM based systems for now
+    if isPlatform "arm"; then
         local needs_synth="1"
     fi
 
