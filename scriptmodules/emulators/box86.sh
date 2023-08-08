@@ -61,6 +61,10 @@ function depends_box86() {
     # X11 on RPi is currently using VMWare's LLVM GL Driver for some reason. That should be removed.
     # Recommended as per: https://www.raspberrypi.org/forums/viewtopic.php?t=196423
     apt remove -y xserver-xorg-video-fbturbo
+
+    # On some platforms, only console users can use X, but it seems sometimes the user is logged into a TTY instead of the console.
+    # Changing this line in the Xwrapper.config will allow anyone to run X.
+    sed -i 's/allowed_users.*\=.*console/allowed_users\=anybody/i' /etc/X11/Xwrapper.config
 }
 
 function sources_box86() {
