@@ -26,7 +26,7 @@ rp_module_flags="rpi4 x11"
 function _latest_ver_mesa() {
     # This defines the Git tag / branch which will be used. Main repository is at:
     # https://gitlab.freedesktop.org/mesa/mesa/
-    echo mesa-20.3.5
+    echo mesa-23.1.5
 }
 
 function depends_mesa() {
@@ -63,7 +63,7 @@ function build_mesa() {
     #cd /home/pi/mesa/build
 
     # 7: Now compile the new version of MESA:
-    meson builddir --prefix="$md_inst" --libdir lib -Dplatforms=x11     -Dvulkan-drivers=broadcom -Ddri-drivers= -Dgallium-drivers=v3d,kmsro,vc4,virgl --buildtype debug
+    meson builddir --prefix="$md_inst" --libdir lib -Dplatforms=x11 -Dvulkan-drivers=broadcom -Ddri-drivers= -Dgallium-drivers=v3d,kmsro,vc4,virgl -Dgallium-nine=true -Ddri3=enabled --buildtype debug
     ninja -C builddir
 }
 
