@@ -66,7 +66,13 @@ function depends_wine() {
     fi
     
     # FreeType is required to enable TrueType fonts
-    # Timidity is to enable MIDI output from Wine
+    # TiMidity is to enable MIDI output from Wine
+    # See: https://wiki.winehq.org/MIDI 
+    # If you get no MIDI sound, make sure TiMidity is running and check your MIDI sound devices:
+    #     aconnect -o
+    # You should only see TiMidity ports or TiMidity ports being the first set.
+    # If you see a MIDI Through Port first, you can try to remove it with the following:
+    #     sudo rmmod snd_seq_dummy
     getDepends timidity fluid-soundfont-gm freetype2-demos
 
     if isPlatform "64bit"; then
