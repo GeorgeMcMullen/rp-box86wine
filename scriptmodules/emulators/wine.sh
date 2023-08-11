@@ -130,8 +130,9 @@ function configure_wine() {
     sudo -u $user WINEDEBUG=-all setarch linux32 -L $md_inst/bin/wine winecfg /v winxp
     
     # needs software synth for midi; limit to ARM based systems for now
+    local needs_synth=0
     if isPlatform "arm"; then
-        local needs_synth="1"
+        needs_synth="1"
     fi
 
     mkRomDir "wine"
@@ -147,6 +148,8 @@ function configure_wine() {
         cat > "$romdir/wine/$winedesktoplauncher" << _EOF_
 #!/bin/bash
 
+# If neither TiMidity or FluidSynth have registered MIDI ports through ALSA, then we need synth
+# This should only be necessary on ARM based platforms
 [[ ! -n "\$(aconnect -o | grep -e TiMidity -e FluidSynth)" ]] && needs_synth="$needs_synth"
 
 function midi_synth() {
